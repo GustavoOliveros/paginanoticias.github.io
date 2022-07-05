@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			let indiceGeneral = 1;
+
+			function calcularFechas() {
+				var fechaPub = new Date(2022, 6, 1);
+				document.getElementById("fecha-publicacion").innerHTML =
+					mostrarFecha(fechaPub);
+			}
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+			function cargarRecomendado() {
+				let arregloArticulos = datos();
+				let indice = Math.floor(Math.random() * arregloArticulos.length);
+
+				if (indice == indiceGeneral) {
+					indice++;
+				}
+
+				let recomendado = arregloArticulos[indice];
+				let html =
+					'<a href="' +
+					recomendado.enlace +
+					'"><img src="' +
+					recomendado.foto +
+					'"/><p>' +
+					recomendado.titulo +
+					"</p></a>";
+
+				document.getElementById("recomendado-1").innerHTML = html;
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>
+			Thor: Love and Thunder ¿Qué esperar de lo nuevo de Marvel | Soy de Cine
+		</title>
+		<script></script>
+		<style>
+			.contenedor {
+				display: grid;
+				grid-gap: 20px;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				grid-template-areas:
+					"header header header"
+					"contenido contenido sidebar";
+			}
+		</style>
+	</head>
+	<body onload="calcularFechas();cargarRecomendado()">
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link"
+							>Televisión</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<span class="categoria">Cine</span>
+				<h1>Thor: Love and Thunder ¿Qué esperar de lo nuevo de Marvel</h1>
+				<h3>¿Lo mejor de la fase 4 de Marvel?</h3>
+				<div class="autor">
+					Publicado el
+					<strong><span id="fecha-publicacion"></span></strong><br />
+					por
+					<a href="autor_redaccion.html" class="fondo-rojo_hover"
+						>Redacción</a
+					>
+				</div>
+				<img
+					src="img/thorloveandthunder.jpg"
+					alt="Captura de la película 'Thor Love and Thunder'"
+				/>
+				<p>
+					Para muchos fans de Marvel Thor: Love and Thunder es una de las
+					películas más esperadas del 2022. Esta nueva cinta, que cuenta en
+					su reparto con Chris Hemsworth, Christian Bale, Tessa Thompson,
+					Jaimie Alexander, Taika Waititi, Russell Crowe y Natalie Portman
+					seguirá la historia del Dios del trueno tras los hechos
+					acontecidos en Avengers: Endgame, una de las obras más exitosas
+					de la historia del cine.
+				</p>
+				<h2>Sinopsis</h2>
+				<p>
+					En Thor: Love and Thunder de Marvel Studios, el Dios del Trueno
+					(Chris Hemsworth) emprende un viaje que no se parece en nada a lo
+					que se ha enfrentado hasta ahora: una búsqueda de la paz
+					interior.
+				</p>
+				<p>
+					Pero el retiro de Thor se ve interrumpido por un asesino
+					galáctico conocido como Gorr el Carnicero de Dioses (Christian
+					Bale), que busca la extinción de los dioses. Para hacer frente a
+					la amenaza, Thor solicita la ayuda del Rey Valkiria (Tessa
+					Thompson), de Korg (Taika Waititi) y de su ex novia Jane Foster
+					(Natalie Portman) que, para sorpresa de Thor, empuña
+					inexplicablemente su martillo mágico, Mjolnir, como la Poderosa
+					Thor. Juntos, se embarcan en una aventura cósmica en la que
+					tendrán que descubrir el misterio de la venganza del Carnicero de
+					Dioses y detenerlo antes de que sea demasiado tarde. Para muchos
+					es uno de los grandes estrenos de julio de 2022 en cines.
+				</p>
+
+				<h2>Crítica de Thor: Love and Thunder</h2>
+				<p>
+					La que es sin duda una de las grandes películas de Marvel en 2022
+					sigue despertando el interés de los seguidores de la compañía. Y
+					es que si hablamos de lo que dice la crítica de Thor: Love and
+					Thunder nos encontramos con opiniones que vale la pena reseñar.
+				</p>
+				<p>
+					Matt Neglia, de Next Best Pictures, destaca la dirección de
+					Waititi afirmando que la cinta “es una gran obra con rock y
+					acción electrizante, muchas risas (¡las cabras gritando!) y una
+					historia profunda sobre dioses ausentes y nuestro deseo de amor.
+					Natalie Portman protagoniza un poderoso regreso y Christian Bale
+					lo parte como el aterrador Gorr. ¡La mejor película de Thor hasta
+					ahora!“.
+				</p>
+				<p>
+					Desde Soy de Cine, Andrew J. Salazar afirma que “Thor: Love
+					and Thunder mejora cuando no intenta recuperar desesperadamente
+					la magia de Ragnarok. La mayor parte del humor no funciona tan
+					bien como aquella vez, pero Chris Hemsworth, Natalie Portman y
+					Christian Bale lo hacen lo mejor posible. No estoy realmente
+					decepcionado porque la película que ves en los trailers es lo que
+					tienes aquí. No puedo evitar sentir que Taika podría haber
+					eliminado gran parte del humor para dar más espacio a Portman y
+					Bale“.
+				</p>
+				<p>
+					Si nos vamos al medio Fandango, Erik Davis la define como “otra
+					clásica aventura de Thor. Es todo lo que quería que fuese.
+					Grandes, coloridas y extrañas batallas impulsadas por Guns
+					N’Roses con una historia muy romántica sobre descubrir el amor en
+					lugares inesperados. Christian Bale y Russell Crowe son
+					especialmente geniales. ¡Y Korg! Y Poderosa Thor y Valkiria son
+					lo mejor de la película. Dadnos un spin-off de ellas juntas“
+				</p>
+				<p>
+					Terminamos con la opinión de Caitlin Tyrrell, del portal The
+					Illuminerdi, quien afirma que “Thor: Love and Thunder sobrepasa
+					todas las expectativas al equilibrar una locura absolutamente
+					rimbombante, con historias conmovedoras que impulsan los
+					personajes. Christian Bale está a otro nivel, y Natalie Portman
+					es realmente excepcional. Es posible que Waititi nos haya dado la
+					mejor película de la fase 4 del UCM“.
+				</p>
+				<p>
+					Como vez, las críticas de Thor: Love and Thunder son
+					mayoritariamente positivas. Eso sí, hay quien deja claro que en
+					ocasiones, una vez más, Disney abusa del sentido ese humor tan
+					absurdo que puede llegar a ser cargante.
+				</p>
+				<p>
+					Eso sí, si seguimos estas opiniones los fans del UCM tendrán el
+					hype por las nubes. Y es que esta película promete dar mucho que
+					hablar a lo largo de los próximos meses.
+				</p>
+				<p>
+					<a href="#" target="_blank" class="fondo-rojo_hover"
+						>Thor: Love and Thunder llega a los cines españoles el 8 de
+						julio de 2022.</a
+					>
+				</p>
+				<div class="info-autor">
+					<img src="img/fotoRedaccion.jpg" alt="foto del autor" />
+					<p>
+						<a
+							href="autor_redaccion.html"
+							target="_blank"
+							class="fondo-rojo_hover"
+							>Redacción</a><a
+								href="https://twitter.com/yosoydecine"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-twitter"></i></a
+							><a
+								href="https://www.instagram.com/yosoydecine/"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-instagram"></i></a
+						><br />
+						Notas de prensa y artículos invitados sobre cine y series
+					</p>
+				</div>
+				<div class="calificacion">
+					<div id="calificacion">
+						<h2>
+							Los usuarios calificaron este artículo con 3.45/5<i
+								class="fa-solid fa-star"
+							></i>
+						</h2>
+						<h3>Ayudenos a mejorar la página con su feedback</h3>
+						<form method="get" id="formulario-calificacion" name="formulario-calificacion">
+							<input
+								type="number"
+								min="1"
+								max="5"
+								id="calificacion-usuario"
+								name="calificacion"
+							/>
+							<input
+								type="button"
+								value="Enviar"
+								id="boton-enviar"
+								onclick="enviarFeedback()"
+							/>
+						</form>
+					</div>
+					<div class="mensaje-error" id="mensaje-error"></div>
+					<div id="sugerencias">
+						<br />
+						<h3>¿Qué no le gustó del artículo?</h3>
+						<textarea
+							name="comentario"
+							id="comentario"
+							placeholder="Su comentario..."
+							form="formulario-calificacion"
+							rows="5"
+						></textarea><br>
+						<input
+							type="button"
+							value="Enviar"
+							form="formulario-calificacion"
+							id="boton-enviar-comentario"
+							onclick="submit()"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar">
+				<div class="sidebar-contenido">
+					<div class="recomendados">
+						<h1>Te podría interesar</h1>
+						<div id="recomendado-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

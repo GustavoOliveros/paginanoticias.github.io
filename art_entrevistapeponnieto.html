@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			let indiceGeneral = 4;
+
+			function calcularFechas() {
+				var fechaPub = new Date(2021, 2, 19);
+				document.getElementById("fecha-publicacion").innerHTML =
+					mostrarFecha(fechaPub);
+			}
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+			function cargarRecomendado() {
+				let arregloArticulos = datos();
+				let indice = Math.floor(Math.random() * arregloArticulos.length);
+
+				if (indice == indiceGeneral) {
+					indice++;
+				}
+
+				let recomendado = arregloArticulos[indice];
+				let html =
+					'<a href="' +
+					recomendado.enlace +
+					'"><img src="' +
+					recomendado.foto +
+					'"/><p>' +
+					recomendado.titulo +
+					"</p></a>";
+
+				document.getElementById("recomendado-1").innerHTML = html;
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Entrevista a Pepón Nieto | Soy de Cine</title>
+		<script></script>
+		<style>
+			.contenedor {
+				display: grid;
+				grid-gap: 20px;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				grid-template-areas:
+					"header header header"
+					"contenido contenido sidebar";
+			}
+		</style>
+	</head>
+	<body onload="calcularFechas();cargarRecomendado()">
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link">Televisión</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<span class="categoria">Televisión - Cine</span>
+				<h1>Entrevista a Pepón Nieto</h1>
+				<h3>
+					Entrevista al actor Pepón Nieto sobre 30 Monedas y el esperado
+					regreso de la serie Los Hombres de Paco.
+				</h3>
+				<div class="autor">
+					Publicado el
+					<strong><span id="fecha-publicacion"></span></strong><br />
+					por
+					<a href="autor_lionelmarrero.html" class="fondo-rojo_hover">Lionel Marrero</a>
+				</div>
+				<img src="img/pepon_nieto.jpg" alt="Foto de Pepón Nieto" />
+				<p>
+					Muchos años de trayectoria son los que ha recorrido Pepón Nieto,
+					actor español reconocido. Ha experimentado distintas áreas como
+					el teatro, la televisión y el cine, convirtiéndose en un artista
+					íntegro. A lo largo de su carrera logró conseguir galardones como
+					mejor actor tanto en cine como en televisión.
+				</p>
+				<p>
+					Hace unas semanas pudimos hablar con él acerca de uno de sus
+					próximos trabajos: el regreso de Los Hombres de Paco, y lo que
+					nos cuenta es realmente interesante.
+				</p>
+				<h2>Entrevista a Pepón Nieto</h2>
+				<iframe
+					width="560"
+					height="315"
+					src="https://www.youtube.com/embed/tumggXvM83A"
+					title="YouTube video player"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen
+				></iframe>
+				<h2>Biografía de Pepón Nieto</h2>
+				<p>
+					Su nombre real es José Antonio Nieto Sánchez, pero a este actor
+					español se le conoce como Pepón Nieto. Nació en Marbella el 20 de
+					enero del año 1967. Creció en el seno de una familia dedicada al
+					arte culinario pues sus padres fueron dueños de un restaurante
+					mientras que sus hermanos decidieron dedicarse a la hostelería.
+				</p>
+				<p>
+					Pepón, por su parte, se inició en el medio artístico realizando
+					interpretaciones en el Laboratorio de Teatro de William Layton.
+					Años más tarde, después de mucha dedicación y crecimiento,
+					obtiene su primer papel en televisión. Y para su sorpresa, tan
+					solo un año después logra aparecer en el cine, consiguiendo una
+					nominación al premio Goya por mejor actor revelación.
+					Posteriormente, siguió participando en distintas producciones,
+					cosechando varios éxitos.
+				</p>
+				<p>
+					Eso sí, no renunció a su amor por el arte culinario. Participó en
+					MasterChef Celebrity y, después de esto, surge el Restaurante de
+					Pepón Nieto en Madrid, llamado Marengo. Con él, Pepón y su
+					hermana tenían como objetivo fusionar la cocina gaditana con la
+					malagueña, aportando a sus platos una personalidad única.
+				</p>
+				<h2>Películas de Pepón Nieto</h2>
+				<p>
+					La primera película que hizo fue Días contados, de Imanol Uribe.
+					La oportunidad le llegó en 1994 y, con ella, fue nominado a un
+					Goya. Tras esta, ha participado en alrededor de 30 películas
+					hasta la actualidad. Entre ellas se encuentra la comedia en la
+					que coincidieron Hugo Silva y Pepón Nieto como protagonistas: El
+					Intercambio (2017). Ese mismo año pudimos verle Perfectos
+					Desconocidos, interpretando el papel de Pepe.
+				</p>
+				<p>
+					Otras con las que ha conseguido notable éxito han sido Perdona
+					bonita, pero Lucas me quería a mí, Chuecatown, Mi gran noche y
+					una de las más recientes más reciente, Un efecto óptico.
+				</p>
+				<h2>Series de Pepón Nieto</h2>
+				<p>
+					La serie con la que empezó en televisión fue Farmacia de guardia,
+					en 1993. A día de hoy suma al rededor de 18 participaciones en
+					obras televisivas, entre las que se encuentra Los Hombres de
+					Paco. También podemos ver a Pepón Nieto en 30 Monedas, serie de
+					HBO estrenada no hace demasiado. En la historia que hace
+					referencia a la traición de Judas a Jesucristo a cambio de 30
+					monedas, aquí Pepón interpreta al sargento Lagunas.
+				</p>
+				<h2>Pepón Nieto en los Hombres de Paco</h2>
+				<p>
+					Pepón interpreta a Mariano en Los Hombres de Paco, una serie
+					policiaca de comedia dramática. Se emitió entre 2005 y 2010 pero
+					recientemente se anunció que Los Hombres de Paco vuelven. Paco
+					Tous y Pepón Nieto, emocionados de dar vida de nuevo a Paco
+					Miranda y Mariano, no han podido esconder su entusiasmo ante el
+					regreso de una de las obras más icónicas de la televisión
+					españolas.
+				</p>
+				<h2>Pepón Nieto en el teatro</h2>
+				<p>
+					En este ámbito son casi 10 las producciones acumuladas. En una de
+					las últimas, La Culpa, el actor es parte de los protagonistas de
+					la obra de David Manet. Otras de las obras en las que ha
+					participado son Naufragios de Alvar Nuñez, La comedia de las
+					mentiras y Anfitrión.
+				</p>
+				<div class="info-autor">
+					<img src="img/fotoLionel.jpg" alt="foto del autor" />
+					<p>
+						<a href="autor_lionelmarrero.html" target="_blank" class="fondo-rojo_hover"
+							>Lionel Marrero</a><a
+								href="https://twitter.com/yosoydecine"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-twitter"></i></a
+							><a
+								href="https://www.instagram.com/yosoydecine/"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-instagram"></i></a
+						><br />
+					</p>
+				</div>
+                <div class="calificacion">
+					<div id="calificacion">
+						<h2>
+							Los usuarios calificaron este artículo con 3.45/5<i
+								class="fa-solid fa-star"
+							></i>
+						</h2>
+						<h3>Ayudenos a mejorar la página con su feedback</h3>
+						<form method="get" id="formulario-calificacion" name="formulario-calificacion">
+							<input
+								type="number"
+								min="1"
+								max="5"
+								id="calificacion-usuario"
+								name="calificacion"
+							/>
+							<input
+								type="button"
+								value="Enviar"
+								id="boton-enviar"
+								onclick="enviarFeedback()"
+							/>
+						</form>
+					</div>
+					<div class="mensaje-error" id="mensaje-error"></div>
+					<div id="sugerencias">
+						<br />
+						<h3>¿Qué no le gustó del artículo?</h3>
+						<textarea
+							name="comentario"
+							id="comentario"
+							placeholder="Su comentario..."
+							form="formulario-calificacion"
+							rows="5"
+						></textarea><br>
+						<input
+							type="button"
+							value="Enviar"
+							form="formulario-calificacion"
+							id="boton-enviar-comentario"
+							onclick="submit()"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar">
+				<div class="sidebar-contenido">
+					<div class="recomendados">
+						<h1>Te podría interesar</h1>
+						<div id="recomendado-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

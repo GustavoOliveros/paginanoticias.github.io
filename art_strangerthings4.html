@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			let indiceGeneral = 3;
+
+			function calcularFechas() {
+				var fechaPub = new Date(2022, 4, 26);
+				document.getElementById("fecha-publicacion").innerHTML =
+					mostrarFecha(fechaPub);
+			}
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+			function cargarRecomendado() {
+				let arregloArticulos = datos();
+				let indice = Math.floor(Math.random() * arregloArticulos.length);
+
+				if (indice == indiceGeneral) {
+					indice++;
+				}
+
+				let recomendado = arregloArticulos[indice];
+				let html =
+					'<a href="' +
+					recomendado.enlace +
+					'"><img src="' +
+					recomendado.foto +
+					'"/><p>' +
+					recomendado.titulo +
+					"</p></a>";
+
+				document.getElementById("recomendado-1").innerHTML = html;
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Stranger things 4: Tres años de espera para volver a Hawkins | Soy de Cine</title>
+		<script></script>
+		<style>
+			.contenedor {
+				display: grid;
+				grid-gap: 20px;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				grid-template-areas:
+					"header header header"
+					"contenido contenido sidebar";
+			}
+		</style>
+	</head>
+	<body onload="calcularFechas();cargarRecomendado()">
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link">Televisión</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<span class="categoria">Televisión</span>
+				<h1>
+					Stranger things 4: Tres años de espera para volver a Hawkins
+				</h1>
+				<h3>
+					Los hermanos Matt y Ross Duffer vuelven a visitar Hawkins, casi
+					tres años después, en Stranger Things 4.
+				</h3>
+				<div class="autor">
+					Publicado el
+					<strong><span id="fecha-publicacion"></span></strong><br />
+					por
+					<a href="autor_joseivan.html" class="fondo-rojo_hover">José Iván Sabau Torrelo</a>
+				</div>
+				<img
+					src="img/strangerthings4.jpg"
+					alt="Captura de la cuarta temporada de Stranger Things"
+				/>
+				<p>
+					Los hermanos Matt y Ross Duffer vuelven a visitar Hawkins, casi
+					tres años después, en Stranger Things 4. La última temporada de
+					la serie franquicia de Netflix viene dividida en dos entregas
+					para un total de nueve episodios. Este próximo 27 de mayo,
+					estarán disponibles los siete primeros. Sin embargo, tendremos
+					que esperar hasta julio para poder disfrutar de los dos últimos
+					capítulos que pondrán el cierre a este nuevo hilo argumental.
+				</p>
+				<h2>Una entrega más madura</h2>
+				<p>
+					Al igual que J.K. Rowling hiciera con su famosa saga, los Duffer
+					han hecho crecer a sus personajes. La pandilla de niños son ahora
+					adolescentes que pelean por sobrevivir en el instituto.
+				</p>
+				<p>
+					Esta nueva etapa les supone nuevos retos personales. La historia
+					se sitúa dentro del género que los estadounidenses llaman
+					“coming-of-age”, el paso de la infancia a la edad adulta.
+				</p>
+				<p>
+					Ce, el personaje que ha hecho famosa a Millie Bobby Brown, tiene
+					dificultades para adaptarse a su instituto y es víctima del abuso
+					de sus compañeras y compañeros. Mientras, Lucas aprovecha su
+					puesto en el equipo de baloncesto para codearse con los
+					populares, dejando de lado a sus amigos.
+				</p>
+				<p>
+					Además, el grupo debe lidiar con todo esto mientras están
+					separados. Ce y los Byers han sido reubicados en otro estado por
+					protección rompiendo la unión de la pandilla.
+				</p>
+				<h2>El terror de Stranger Things 4</h2>
+				<p>
+					Cuando Stranger Things se estrenó en 2016, los primeros episodios
+					de la serie se asemejaban más a películas de los ochenta como Los
+					Goonies o Cuenta Conmigo. El éxito de la serie, fue saber
+					combinar ese tono con unas gotas de suspense y, en algunos
+					momentos, recursos de terror.
+				</p>
+				<p>
+					Eso hizo que Stranger Things tuviera un amplio abanico de
+					espectadores. Los más jóvenes, a los que las partes de terror les
+					venían un poco grandes, y el público adulto atraído por la
+					poderosa nostalgia.
+				</p>
+				<p>
+					En esta cuarta temporada, los Duffer suben el tono y lo acercan a
+					un terror más físico y brutal.
+				</p>
+				<p>
+					Los primeros episodios recuerdan mucho al universo que creó Wes
+					Craven en Pesadilla en Elm Street. El ente con el que deben
+					lidiar es parecido a Freddy Kruegger y su forma de actuar,
+					también.
+				</p>
+				<p>
+					La historia de Ce nos trae también un ligero aroma a Carrie, la
+					adaptación que De Palma hizo de la novela de Stephen King sobre
+					una chica con poderes que sufre el acoso de sus compañeros de
+					clase.
+				</p>
+				<p>
+					Aunque con estos cambios, la serie mantiene su aroma ochentero.
+					Sin duda, una de las claves de su éxito.
+				</p>
+				<h2>Tramas y personajes irregulares</h2>
+				<img
+					src="img/vecna_strangerthings4.jpg"
+					alt="Vecna de Stranger Things 4"
+				/>
+				<p>
+					La historia, por lo menos en estos siete capítulos, discurre a
+					través de tres tramas paralelas. No podemos desvelar demasiado de
+					ellas pero sí diremos que el interés con el que se siguen las
+					tres no es el mismo.
+				</p>
+				<p>
+					Para nosotros, la que atañe al personaje de Joyce (Wynona Ryder)
+					es la menos efectiva. La serie funciona mejor cuando los
+					adolescentes están en pantalla que cuando lo están los adultos.
+				</p>
+				<p>
+					Tampoco acaba de convencernos el ente al que deben enfrentarse.
+					Los demogorgon eran unas criaturas espectaculares y visualmente
+					poderosas. A partir de ahí, cualquier otro personaje no va a
+					estar a la altura. Este “villano” es el menos original de todos
+					los que han aparecido en la serie. El mundo paralelo en el que
+					habita, tampoco resulta tan satisfactorio como el de las primeras
+					entregas.
+				</p>
+				<p>El listón estaba demasiado alto.</p>
+				<h2>Nuestra valoración de Stranger Things 4</h2>
+				<p>
+					Los Duffer mantienen la esencia de la serie. No en vano, es lo
+					que la ha puesto como uno de los buques insignia de la
+					plataforma.
+				</p>
+				<p>
+					Los personajes, ahora adolescentes, deben lidiar con otro tipo de
+					problemas personales. Todos ellos, intentan encajar en el
+					instituto mientras reestructuran sus relaciones dentro del grupo.
+					Eso le da la serie la posibilidad de explorar nuevos escenarios y
+					llevar a sus personajes a situaciones que no permitían en
+					temporadas anteriores.
+				</p>
+				<p>
+					La serie ha subido, además, la intensidad de las escenas de
+					terror. Un horror más físico y, en ocasiones, cercano al gore.
+				</p>
+				<p>
+					El nuevo desafío al que se enfrenta la pandilla de Hawkins es
+					menos atractivo que los fabulosos demogorgon, y su forma de
+					funcionar recuerda mucho al icónico personaje creado por Craven,
+					Freddy Kruegger. Es decir, el villano menos original de todas las
+					entregas hasta la fecha.
+				</p>
+				<p>
+					Tampoco todas las historias que suceden en paralelo son capaces
+					de captar nuestro interés de la misma forma. Las historias son
+					irregulares y menos efectivas cuando no son los adolescentes los
+					que están en pantalla.
+				</p>
+				<p>
+					Si has esperado tres año para llegar hasta aquí y te consideras
+					fan del universo creado por los Duffer, disfrutarás de esta nueva
+					temporada. Aunque, siendo objetivos, no está a la altura de de
+					las tres anteriores.
+				</p>
+				<p>
+					<a
+						href="https://www.netflix.com/es/title/80057281"
+						target="_blank"
+						class="fondo-rojo_hover"
+						>Puedes ver Stranger Things 4 en Netflix.</a
+					>
+				</p>
+				<div class="info-autor">
+					<img src="img/fotoJose.jpg" alt="foto del autor" />
+					<p>
+						<a href="autor_joseivan.html" target="_blank" class="fondo-rojo_hover"
+							>José Iván Sabau Torrelo</a><a
+								href="https://twitter.com/yosoydecine"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-twitter"></i></a
+							><a
+								href="https://www.instagram.com/yosoydecine/"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-instagram"></i></a
+						><br />
+						Nacido en Las Palmas. Licenciado en filología inglesa. Autor
+						del libro de relatos "Siluetas" y de la novela "Las sombras que
+						fuimos". Cocreador de la página de cine B Entre ninjas y
+						lagartos. Actualmente reside en Maine (EEUU)
+					</p>
+				</div>
+                <div class="calificacion">
+					<div id="calificacion">
+						<h2>
+							Los usuarios calificaron este artículo con 3.45/5<i
+								class="fa-solid fa-star"
+							></i>
+						</h2>
+						<h3>Ayudenos a mejorar la página con su feedback</h3>
+						<form method="get" id="formulario-calificacion" name="formulario-calificacion">
+							<input
+								type="number"
+								min="1"
+								max="5"
+								id="calificacion-usuario"
+								name="calificacion"
+							/>
+							<input
+								type="button"
+								value="Enviar"
+								id="boton-enviar"
+								onclick="enviarFeedback()"
+							/>
+						</form>
+					</div>
+					<div class="mensaje-error" id="mensaje-error"></div>
+					<div id="sugerencias">
+						<br />
+						<h3>¿Qué no le gustó del artículo?</h3>
+						<textarea
+							name="comentario"
+							id="comentario"
+							placeholder="Su comentario..."
+							form="formulario-calificacion"
+							rows="5"
+						></textarea><br>
+						<input
+							type="button"
+							value="Enviar"
+							form="formulario-calificacion"
+							id="boton-enviar-comentario"
+							onclick="submit()"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar">
+				<div class="sidebar-contenido">
+					<div class="recomendados">
+						<h1>Te podría interesar</h1>
+						<div id="recomendado-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

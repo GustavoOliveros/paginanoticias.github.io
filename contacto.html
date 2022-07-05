@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			let estadoFormulario = "general";
+
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+
+			function verificarNombre() {
+				let nombre = document.getElementById("nombre-general").value;
+				let esValido = false;
+
+				if (nombre != "") {
+					document.getElementById("nombre-general").style.borderColor =
+						"black";
+					document.getElementById("mensaje-error-nombre").style.display =
+						"none";
+					esValido = true;
+				} else {
+					document.getElementById("nombre-general").style.borderColor =
+						"red";
+					document.getElementById("mensaje-error-nombre").style.display =
+						"block";
+					document.getElementById("mensaje-error-nombre").innerHTML =
+						"Campo obligatorio";
+				}
+
+				return esValido;
+			}
+
+			function verificarCodPais(){
+				let codigoPais = document.getElementById("codPais").value;
+				let esValido = false;
+
+				if(codigoPais[0] == "+"){
+					codigoPais = codigoPais.replace("+","");
+					if(!isNaN(codigoPais)){
+						codigoPais = parseFloat(codigoPais);
+						if(Number.isInteger(codigoPais)){
+							if(codigoPais > 0){
+								document.getElementById("codPais").style.borderColor = "black";
+								document.getElementById("mensaje-error-codarea").style.display = "none";
+								esValido = true;
+							}else{
+								document.getElementById("codPais").style.borderColor = "red";
+								document.getElementById("mensaje-error-codarea").style.display = "block";
+								document.getElementById("mensaje-error-codarea").innerHTML = "Después del '+', el código de país debe ser un número entero positivo";
+							}
+						}else{
+							document.getElementById("codPais").style.borderColor = "red";
+							document.getElementById("mensaje-error-codarea").style.display = "block";
+							document.getElementById("mensaje-error-codarea").innerHTML = "Después del '+', el código de país debe ser un número entero positivo";
+						}
+					}else{
+						document.getElementById("codPais").style.borderColor = "red";
+						document.getElementById("mensaje-error-codarea").style.display = "block";
+						document.getElementById("mensaje-error-codarea").innerHTML = "Después del '+', el código de país debe ser un número entero positivo";
+					}
+				}else{
+					document.getElementById("codPais").style.borderColor = "red";
+					document.getElementById("mensaje-error-codarea").style.display = "block";
+					document.getElementById("mensaje-error-codarea").innerHTML = "El código de país debe comenzar con '+'";
+				}
+
+				return esValido;
+			}
+
+			function verificarNumTel(){
+				let numTel = document.getElementById("numeroTel").value;
+				let cantidadDigitos = numTel.length;
+				let esValido = false;
+
+				if(!isNaN(numTel) && numTel != ""){
+					numTel = parseFloat(numTel);
+						if(Number.isInteger(numTel)){
+							if(cantidadDigitos >= 7 && numTel > 0){
+								document.getElementById("numeroTel").style.borderColor = "black";
+								document.getElementById("mensaje-error-telefono").style.display = "none";
+								esValido = true;
+							}else{
+								document.getElementById("numeroTel").style.borderColor = "red";
+								document.getElementById("mensaje-error-telefono").style.display = "block";
+								document.getElementById("mensaje-error-telefono").innerHTML = "El número de telefono debe ser positivo y tener más de 7 dígitos.";
+							}
+						}else{
+							document.getElementById("numeroTel").style.borderColor = "red";
+							document.getElementById("mensaje-error-telefono").style.display = "block";
+							document.getElementById("mensaje-error-telefono").innerHTML = "El número de telefono no puede tener decimales";
+						}
+					}else{
+						document.getElementById("numeroTel").style.borderColor = "red";
+						document.getElementById("mensaje-error-telefono").style.display = "block";
+						document.getElementById("mensaje-error-telefono").innerHTML = "Ingrese únicamente el número";
+					}
+
+
+				return esValido;
+			}
+
+			function verificarAdjunto(){
+				let nombreAdjunto = document.getElementById("archivo-empleo").value;
+				let tipoArchivo = nombreAdjunto.substring(nombreAdjunto.length, nombreAdjunto.length-3);
+				let esValido = false;
+
+				if(tipoArchivo == "pdf" || nombreAdjunto == ""){
+					document.getElementById("mensaje-error-archivo").style.display = "none";
+					document.getElementById("archivo-empleo").borderColor = "black";
+					esValido = true;
+				}else{
+					document.getElementById("mensaje-error-archivo").style.display = "block";
+					document.getElementById("mensaje-error-archivo").innerHTML = "El archivo debe ser .pdf";
+					document.getElementById("archivo-empleo").borderColor = "red";
+				}
+
+				return esValido;
+			}
+
+			function verificarMensaje() {
+				let mensaje = document.getElementById("mensaje-general").value;
+				let esValido = false;
+
+				if (mensaje != "") {
+					document.getElementById("mensaje-general").style.borderColor =
+						"black";
+					document.getElementById("mensaje-error-mensaje").style.display =
+						"none";
+					esValido = true;
+				} else {
+					document.getElementById("mensaje-general").style.borderColor =
+						"red";
+					document.getElementById("mensaje-error-mensaje").style.display =
+						"block";
+					document.getElementById("mensaje-error-mensaje").innerHTML =
+						"Campo obligatorio";
+				}
+
+				return esValido;
+			}
+
+			function verificarEmail() {
+				let email = document.getElementById("email-general").value;
+				let esValido = false;
+				let encontroArroba = false;
+				let contador = 0;
+
+				if (email != "") {
+					while (contador < email.length && !esValido) {
+						if (email[contador] == "@" || encontroArroba){
+							encontroArroba = true;
+							if (email[contador] == "." && contador != email.length - 1) {
+								esValido = true;
+							}
+						}
+						contador++;
+					}
+
+					if (esValido) {
+						document.getElementById("email-general").style.borderColor =
+							"black";
+						document.getElementById("mensaje-error-email").style.display =
+							"none";
+					} else {
+						document.getElementById("email-general").style.borderColor =
+							"red";
+						document.getElementById("mensaje-error-email").style.display =
+							"block";
+						document.getElementById("mensaje-error-email").innerHTML =
+							"El email ingresado no es válido.";
+					}
+				} else {
+					document.getElementById("email-general").style.borderColor =
+						"red";
+					document.getElementById("mensaje-error-email").style.display =
+						"block";
+					document.getElementById("mensaje-error-email").innerHTML =
+						"Campo obligatorio";
+				}
+
+				return esValido;
+			}
+
+			function enviarFormulario() {
+				let datosValidosE = false;
+				let datosValidosM = false;
+				let datosValidosN = false;
+				let datosValidosCodPais = false;
+				let datosValidosArch = false;
+				let datosValidosNumTel = false;
+				let empleoValido = false;
+
+				if (verificarMensaje()) {
+					datosValidosM = true;
+				}
+				if (verificarNombre()) {
+					datosValidosN = true;
+				}
+				if (verificarEmail()) {
+					datosValidosE = true;
+				}
+				if(estadoFormulario === "empleo"){
+					if(verificarNumTel()){
+						datosValidosNumTel = true;
+					}
+					if(verificarCodPais()){
+						datosValidosCodPais = true;
+					}
+					if(verificarAdjunto()){
+						datosValidosArch = true;
+					}
+					if (datosValidosNumTel && datosValidosCodPais && datosValidosArch) {
+						empleoValido = true;
+					}
+				}else{
+					empleoValido = true;
+				}
+
+				if (datosValidosE && datosValidosM && datosValidosN && empleoValido) {
+					document.getElementById("formulario-general").submit();
+				}
+			}
+
+			function resetearFormulario(){
+				document.getElementById("mensaje-general").style.borderColor = "black";
+				document.getElementById("nombre-general").style.borderColor = "black";
+				document.getElementById("email-general").style.borderColor = "black";
+				document.getElementById("numeroTel").style.borderColor = "black";
+				document.getElementById("codPais").style.borderColor = "black";
+
+				document.getElementById("mensaje-error-mensaje").style.display = "none";
+				document.getElementById("mensaje-error-nombre").style.display = "none";
+				document.getElementById("mensaje-error-email").style.display = "none";
+				document.getElementById("mensaje-error-archivo").style.display = "none";
+				document.getElementById("mensaje-error-telefono").style.display = "none";
+				document.getElementById("mensaje-error-codarea").style.display = "none";
+			}
+
+			function cambiarFormulario(estado) {
+				if (estado == "abrir") {
+					document.getElementById("fila-archivo-empleo").style.display =
+						"block";
+					document.getElementById("fila-telefono").style.display = "block";
+					estadoFormulario = "empleo";
+					resetearFormulario();
+				} else {
+					document.getElementById("fila-archivo-empleo").style.display =
+						"none";
+					document.getElementById("fila-telefono").style.display = "none";
+					estadoFormulario = "general";
+					resetearFormulario();
+				}
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Últimas Noticias y Novedades | Soy de Cine</title>
+		<style>
+			.contenedor {
+				display: block;
+			}
+			.img-contenido {
+				margin-top: 20px;
+			}
+			.contacto-titulo {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link">Televisión</a>
+					</li>
+					<li class="nav-menu-item nav-menu-item_active">
+						<a href="#" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<img
+					src="img/saladecine.jpg"
+					alt="Sala de cine"
+					class="img-contenido"
+				/>
+				<h1 class="contacto-titulo" style="text-align:center">Contacto</h1>
+				<div class="tipoContacto-div">
+					<span
+						><input
+							type="radio"
+							name="tipoContacto"
+							id="General"
+							class="tipoContacto"
+							onclick="cambiarFormulario('cerrar')"
+							checked
+						/>
+						General</span
+					>
+					<span
+						><input
+							type="radio"
+							name="tipoContacto"
+							id="Empleo"
+							class="tipoContacto"
+							onclick="cambiarFormulario('abrir');"
+						/>
+						Empleo</span
+					>
+				</div>
+				<form
+					method="get"
+					id="formulario-general"
+					enctype="multipart/form-data"
+				>
+					<div class="formulario">
+						<table>
+							<tr>
+								<td class="table-input" id="mensaje">
+									Mensaje: <span>*</span
+									><textarea
+										name="mensaje-general"
+										placeholder="Escriba su mensaje..."
+										id="mensaje-general"
+									></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-mensaje"></td>
+							</tr>
+							<tr>
+								<td class="table-input">
+									Nombre: <span>*</span><br /><input
+										type="text"
+										name="nombre-general"
+										id="nombre-general"
+										placeholder="Su nombre..."
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-nombre"></td>
+							</tr>
+							<tr>
+								<td class="table-input">
+									Email: <span>*</span><br /><input
+										type="email"
+										name="email-general"
+										placeholder="usuario@ejemplo.com"
+										id="email-general"
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-email"></td>
+							</tr>
+							<tr>
+								<td class="table-input" id="fila-telefono">
+									Número de telefono: <span>*</span><br>
+									<input type="text" maxlength="4" id="codPais" name="codigopais" placeholder="+54">
+									<input type="tel" id="numeroTel" name="numerodetelefono" placeholder="92994234235">
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-codarea"></td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-telefono"></td>
+							</tr>
+							<tr>
+								<td id="fila-archivo-empleo">
+									Adjunte su curriculum (opcional)<br />
+									<input
+										type="file"
+										name="Adjunto"
+										id="archivo-empleo"
+										accept=".pdf"
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-archivo"></td>
+							</tr>
+							<tr>
+								<td class="boton-formulario">
+									<input
+										onclick="enviarFormulario()"
+										type="button"
+										value="Enviar"
+									/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

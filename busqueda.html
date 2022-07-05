@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+
+			function verificarNombre() {
+				let nombre = document.getElementById("nombre-general").value;
+				let esValido = false;
+
+				if (nombre != "") {
+					document.getElementById("nombre-general").style.borderColor =
+						"black";
+					document.getElementById("mensaje-error-nombre").style.display =
+						"none";
+					esValido = true;
+				} else {
+					document.getElementById("nombre-general").style.borderColor =
+						"red";
+					document.getElementById("mensaje-error-nombre").style.display =
+						"block";
+					document.getElementById("mensaje-error-nombre").innerHTML =
+						"Todos los campos son obligatorios";
+				}
+
+				return esValido;
+			}
+			/**
+			 * Retorna un arreglo indexado con la cantidad de dias de cada mes en un año calendario
+			 * @param {integer} yyyy anio actual
+			 * @returns {array}
+			 */
+			function anioSCalendario(yyyy) {
+				var limMeses = new Array();
+				limMeses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+				if (
+					(yyyy % 4 == 0 && yyyy % 100 != 0) ||
+					(yyyy % 400 == 0 && yyyy != 0)
+				) {
+					limMeses[1] = 29;
+				}
+
+				return limMeses;
+			}
+
+			function verificarRango(dia, mes, anio) {
+				let fechaActual = new Date();
+				let anioValido = false;
+				let mesValido = false;
+				let diaValido = false;
+				let esFechaValida = false;
+				let anioCalendario;
+
+				let diaEnt = parseInt(dia);
+				let mesEnt = parseInt(mes);
+				let anioEnt = parseInt(anio);
+
+				if (anioEnt >= 1970 && anioEnt < fechaActual.getFullYear()) {
+					anioValido = true;
+					anioCalendario = anioSCalendario(anioEnt);
+					if (mesEnt >= 1 && mesEnt <= 12) {
+						mesValido = true;
+					}
+					if (
+						mesValido &&
+						anioValido &&
+						diaEnt >= 1 &&
+						diaEnt <= anioCalendario[mesEnt - 1]
+					) {
+						diaValido = true;
+					}
+				} else if (anioEnt == fechaActual.getFullYear()) {
+					anioValido = true;
+					anioCalendario = anioSCalendario(anioEnt);
+					if (mesEnt >= 1 && mesEnt < fechaActual.getMonth() + 1) {
+						mesValido = true;
+						if (
+							mesValido &&
+							anioValido &&
+							diaEnt >= 1 &&
+							diaEnt <= anioCalendario[mesEnt - 1]
+						) {
+							diaValido = true;
+						}
+					} else if (mesEnt == fechaActual.getMonth() + 1) {
+						mesValido = true;
+						if (
+							mesValido &&
+							anioValido &&
+							diaEnt >= 1 &&
+							diaEnt <= fechaActual.getDate()
+						) {
+							diaValido = true;
+						}
+					}
+				}
+
+				if (anioValido && mesValido && diaValido) {
+					esFechaValida = true;
+				}
+
+				return esFechaValida;
+			}
+
+			function verificarFormato(string) {
+				let contador = 0;
+				let esValido = false;
+				let entrada = string + "";
+
+				if (entrada.length == 10) {
+					if (entrada[2] == "/" && entrada[5] == "/") {
+						esValido = true;
+					}
+				}
+
+				return esValido;
+			}
+
+			function verificarFecha() {
+				let esValido = false;
+				let diaMin, mesMin, anioMin, minimoNum;
+				let diaMax, mesMax, anioMax, maximoNum;
+				let fechaActual = new Date();
+				let fecha_min, fecha_max;
+
+				let minimo = document.getElementById("fecha-min").value;
+				let maximo = document.getElementById("fecha-max").value;
+
+				if (verificarFormato(minimo) && verificarFormato(maximo)) {
+					diaMin = minimo.substring(0, 2);
+					mesMin = minimo.substring(3, 5);
+					anioMin = minimo.substring(6, 10);
+					diaMax = maximo.substring(0, 2);
+					mesMax = maximo.substring(3, 5);
+					anioMax = maximo.substring(6, 10);
+
+					minimoNum = diaMin + mesMin + anioMin;
+					maximoNum = diaMax + mesMax + anioMax;
+
+					if (
+						!isNaN(minimoNum) &&
+						!isNaN(maximoNum) &&
+						diaMin > 0 &&
+						diaMax > 0
+					) {
+						minimoNum = parseFloat(minimoNum);
+						maximoNum = parseFloat(maximoNum);
+
+						if (
+							Number.isInteger(minimoNum) &&
+							Number.isInteger(maximoNum)
+						) {
+							if (
+								verificarRango(diaMin, mesMin, anioMin) &&
+								verificarRango(diaMax, mesMax, anioMax)
+							) {
+								fecha_min = new Date(
+									anioMin,
+									mesMin - 1,
+									diaMin,
+									0,
+									0,
+									0,
+									0
+								);
+								fecha_max = new Date(
+									anioMax,
+									mesMax - 1,
+									diaMax,
+									0,
+									0,
+									0,
+									0
+								);
+								if (fecha_min.getTime() <= fecha_max.getTime()) {
+									esValido = true;
+								} else {
+									document.getElementById("fecha-min").style.borderColor =
+										"red";
+									document.getElementById("fecha-max").style.borderColor =
+										"red";
+									document.getElementById(
+										"mensaje-error-general"
+									).innerHTML =
+										"La fecha de inicio no puede ser después de la fecha final.";
+									document.getElementById(
+										"mensaje-error-general"
+									).style.display = "block";
+								}
+							} else {
+								document.getElementById("fecha-min").style.borderColor =
+									"red";
+								document.getElementById("fecha-max").style.borderColor =
+									"red";
+								document.getElementById(
+									"mensaje-error-general"
+								).innerHTML = "La fecha ingresada no es válida.";
+								document.getElementById(
+									"mensaje-error-general"
+								).style.display = "block";
+							}
+						} else {
+							document.getElementById("fecha-min").style.borderColor =
+								"red";
+							document.getElementById("fecha-max").style.borderColor =
+								"red";
+							document.getElementById("mensaje-error-general").innerHTML =
+								"Día, mes y año no pueden contener decímales.";
+							document.getElementById(
+								"mensaje-error-general"
+							).style.display = "block";
+						}
+					} else {
+						document.getElementById("fecha-min").style.borderColor = "red";
+						document.getElementById("fecha-max").style.borderColor = "red";
+						document.getElementById("mensaje-error-general").innerHTML =
+							"Día, mes y año deben ser números enteros positivos";
+						document.getElementById(
+							"mensaje-error-general"
+						).style.display = "block";
+					}
+				} else {
+					document.getElementById("fecha-min").style.borderColor = "red";
+					document.getElementById("fecha-max").style.borderColor = "red";
+					document.getElementById("mensaje-error-general").innerHTML =
+						"Las fechas deben tener 10 dígitos y respetar el formato dd/mm/aaaa";
+					document.getElementById("mensaje-error-general").style.display =
+						"block";
+				}
+
+				return esValido;
+			}
+
+			function verificarCalificacion() {
+				let maximo = parseFloat(
+					document.getElementById("maxima-calificacion").value
+				);
+				let minimo = parseFloat(
+					document.getElementById("minima-calificacion").value
+				);
+				let esValido = false;
+
+				// Redondea el número
+				minimo = Math.round((minimo + Number.EPSILON) * 100) / 100;
+				maximo = Math.round((maximo + Number.EPSILON) * 100) / 100;
+				document.getElementById("maxima-calificacion").value = maximo;
+				document.getElementById("minima-calificacion").value = minimo;
+
+				if (minimo > 0 && minimo <= 5 && maximo > 0 && maximo <= 5) {
+					document.getElementById("mensaje-error-general").style.display =
+						"none";
+					document.getElementById(
+						"maxima-calificacion"
+					).style.borderColor = "black";
+					document.getElementById(
+						"minima-calificacion"
+					).style.borderColor = "black";
+
+					if (minimo <= maximo) {
+						esValido = true;
+					} else {
+						document.getElementById(
+							"mensaje-error-general"
+						).style.display = "block";
+						document.getElementById(
+							"maxima-calificacion"
+						).style.borderColor = "red";
+						document.getElementById(
+							"minima-calificacion"
+						).style.borderColor = "red";
+						document.getElementById("mensaje-error-general").innerHTML =
+							"La calificación mínima no puede ser mayor a la máxima";
+					}
+				} else {
+					document.getElementById("mensaje-error-general").style.display =
+						"block";
+					document.getElementById(
+						"minima-calificacion"
+					).style.borderColor = "red";
+					document.getElementById(
+						"maxima-calificacion"
+					).style.borderColor = "red";
+					document.getElementById("mensaje-error-general").innerHTML =
+						"Ambos números deben ser mayores o iguales a 1 y menores o iguales a 5";
+				}
+
+				return esValido;
+			}
+
+			function buscar() {
+				let datosValidosCalif = false;
+				let datosValidosFecha = false;
+
+				let titulo = document.getElementById("input-busqueda").value;
+				let autor = document.getElementById("autor").value;
+				let categoria = document.getElementById("categoria").value;
+				let fecha_min = document.getElementById("fecha-min").value;
+				let fecha_max = document.getElementById("fecha-max").value;
+				let minima_calificacion = document.getElementById(
+					"minima-calificacion"
+				).value;
+				let maxima_calificacion = document.getElementById(
+					"maxima-calificacion"
+				).value;
+
+				document.getElementById("mensaje-error-general").style.display =
+					"none";
+				document.getElementById("minima-calificacion").style.borderColor =
+					"black";
+				document.getElementById("maxima-calificacion").style.borderColor =
+					"black";
+				document.getElementById("fecha-min").style.borderColor = "black";
+				document.getElementById("fecha-max").style.borderColor = "black";
+
+				if (
+					titulo != "" ||
+					autor != "" ||
+					categoria != "default" ||
+					fecha_max != "" ||
+					fecha_min != "" ||
+					minima_calificacion != "" ||
+					maxima_calificacion != ""
+				) {
+					if (minima_calificacion != "" && maxima_calificacion != "") {
+						document.getElementById(
+							"minima-calificacion"
+						).style.borderColor = "black";
+						document.getElementById(
+							"maxima-calificacion"
+						).style.borderColor = "black";
+						if (verificarCalificacion()) {
+							datosValidosCalif = true;
+						}
+					} else if (
+						minima_calificacion != "" ||
+						maxima_calificacion != ""
+					) {
+						document.getElementById(
+							"mensaje-error-general"
+						).style.display = "block";
+						document.getElementById(
+							"minima-calificacion"
+						).style.borderColor = "red";
+						document.getElementById(
+							"maxima-calificacion"
+						).style.borderColor = "red";
+						document.getElementById("mensaje-error-general").innerHTML =
+							"Si desea buscar por calificación, debe ingresar los dos campos";
+					}else{
+						datosValidosCalif = true;
+					}
+
+					if (fecha_min != "" && fecha_max != "") {
+						document.getElementById("fecha-min").style.borderColor =
+							"black";
+						document.getElementById("fecha-max").style.borderColor =
+							"black";
+						if (verificarFecha()) {
+							datosValidosFecha = true;
+						}
+					} else if (fecha_min != "" || fecha_max != "") {
+						document.getElementById(
+							"mensaje-error-general"
+						).style.display = "block";
+						document.getElementById("fecha-min").style.borderColor = "red";
+						document.getElementById("fecha-max").style.borderColor = "red";
+						document.getElementById("mensaje-error-general").innerHTML =
+							"Si desea buscar por fecha, debe ingresar los dos campos";
+					}else{
+						datosValidosFecha = true;
+					}
+
+
+					if(datosValidosCalif && datosValidosFecha){
+						document.getElementById("formulario-busqueda").submit();
+					}
+				} else {
+					document.getElementById("mensaje-error-general").style.display =
+						"block";
+					document.getElementById("mensaje-error-general").innerHTML =
+						"Debe ingresar al menos un campo.";
+				}
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Últimas Noticias y Novedades | Soy de Cine</title>
+		<style>
+			.contenedor {
+				display: block;
+			}
+			.img-contenido {
+				margin-top: 20px;
+			}
+			.contacto-titulo {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link"
+							>Televisión</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda-div">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display: none" />
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<img src="img/streaming.jpg" alt="Servicios de streaming" />
+				<h1 style="text-align: center">Búsqueda Avanzada</h1>
+				<form method="get" id="formulario-busqueda">
+					<div class="formulario-busqueda">
+						<table>
+							<tr>
+								<td class="table-input" id="busqueda">
+									<input
+										maxlength="20"
+										type="text"
+										id="input-busqueda"
+										name="busqueda"
+										placeholder="Titulo..."
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-busqueda"></td>
+							</tr>
+							<tr>
+								<td class="table-input">
+									Autor<br /><input
+										maxlength="20"
+										type="text"
+										name="autor"
+										id="autor"
+										placeholder="Lionel Marrero..."
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-autor"></td>
+							</tr>
+							<tr>
+								<td class="table-input">
+									Categoría<br /><select name="categoria" id="categoria">
+										<option value="default" selected>
+											Seleccione uno...
+										</option>
+										<option value="cine">Cine</option>
+										<option value="television">Televisión</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td
+									class="mensaje-error"
+									id="mensaje-error-categoria"
+								></td>
+							</tr>
+							<tr>
+								<td class="table-input">
+									<table>
+										<tr>
+											<td>
+												Desde<br /><input
+													type="text"
+													name="fecha-min"
+													placeholder="dd/mm/aaaa"
+													maxlength="10"
+													id="fecha-min"
+												/>
+											</td>
+											<td>
+												Hasta<br /><input
+													type="text"
+													maxlength="10"
+													name="fecha-max"
+													placeholder="dd/mm/aaaa"
+													id="fecha-max"
+												/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-fecha"></td>
+							</tr>
+							<tr>
+								<td class="table-input">
+									Calificación de los usuarios
+									<table>
+										<tr>
+											<td>
+												<input
+													type="number"
+													min="1"
+													max="5"
+													id="minima-calificacion"
+													name="calificacion"
+													placeholder="Calificación mínima..."
+												/>
+											</td>
+											<td>
+												<input
+													type="number"
+													min="1"
+													max="5"
+													id="maxima-calificacion"
+													placeholder="Calificación máxima..."
+												/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td
+									class="mensaje-error"
+									id="mensaje-error-calificacion"
+								></td>
+							</tr>
+							<tr>
+								<td class="mensaje-error" id="mensaje-error-general"></td>
+							</tr>
+							<tr>
+								<td class="boton-formulario">
+									<input onclick="buscar()" type="button" value="Buscar" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

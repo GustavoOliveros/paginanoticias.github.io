@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			indiceGeneral = 0;
+
+			function calcularFechas() {
+				var fechaPub = new Date(2022, 5, 29);
+				document.getElementById("fecha-publicacion").innerHTML =
+					mostrarFecha(fechaPub);
+			}
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+			function cargarRecomendado() {
+				let arregloArticulos = datos();
+				let indice = Math.floor(Math.random() * arregloArticulos.length);
+
+				if(indice == indiceGeneral){
+					indice++;
+				}
+
+				let recomendado = arregloArticulos[indice];
+				let html =
+					'<a href="' +
+					recomendado.enlace +
+					'"><img src="' +
+					recomendado.foto +
+					'"/><p>' +
+					recomendado.titulo +
+					"</p></a>";
+
+				document.getElementById("recomendado-1").innerHTML = html;
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>A diente de perro: un debut salvaje | Soy de Cine</title>
+		<script></script>
+		<style>
+			.contenedor {
+				display: grid;
+				grid-gap: 20px;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				grid-template-areas:
+					"header header header"
+					"contenido contenido sidebar";
+			}
+		</style>
+	</head>
+	<body onload="calcularFechas();cargarRecomendado()">
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link">Televisión</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<span class="categoria">Cine</span>
+				<h1>A diente de perro: un debut salvaje</h1>
+				<h3>
+					La ópera prima de Jose Luís Estañ llega a los cines el 1 de julio
+				</h3>
+				<div class="autor">
+					Publicado el
+					<strong><span id="fecha-publicacion"></span></strong><br />
+					por <a href="autor_rubenmoreno.html" class="fondo-rojo_hover">Rubén Moreno Lozano</a>
+				</div>
+				<img
+					src="img/adientedeperrocritica.jpg"
+					alt="Captura de la película 'A diente de Perro'"
+				/>
+				<p>
+					De la mano de la productora de Caballo Films (Antidisturbios) y a
+					traves de la distribuidora Begin Again films, el 1 de julio
+					podremos disfrutar la ópera prima de Jose Luís Estañ, A diente de
+					perro. Una obra llena de rabia que lanza pistas sobre el futuro
+					prometedor de su director. Te contamos lo que nos ha parecido.
+				</p>
+				<h2>Sinopsis</h2>
+				<p>
+					Tras una atípica jornada laboral como mozo de almacén, Darío
+					Manzano, un treinteañero en crisis y sin rumbo, se ve inmerso en
+					una trama que hará que cambie radicalmente su vida y la de su
+					familia.
+				</p>
+
+				<h2>Crítica a diente de perro</h2>
+				<p>
+					A diente de perro nos mete por completo en la caótica vida de
+					Darío Manzano, un adicto que trabaja de noche como mozo de
+					almacén, cuyos ingresos proceden del trafico de drogas. Su vida
+					es un bucle agotador de sufrimiento, donde resulta imposible
+					localizar el origen de ese mal.
+				</p>
+				<h2>Sin freno</h2>
+				<p>
+					Una espiral de odio y malas elecciones convierten su percepción
+					del mundo en una carretera infinita sin salida, con los ojos de
+					un perro rabioso encadenado. Sus arrolladores primeros minutos,
+					salvajes y llenos de energía por un montaje frenético nos gritan
+					a la cara desde la pantalla. “No puedes seguir así”, le dice la
+					chica con la que se acuesta. Su respuesta ante esa terrorífica
+					verdad consiste en meterse una raya.
+				</p>
+				<p>
+					Todo va tan deprisa que el golpe es inminente. El giro dramático
+					tras esa introducción, sucede en forma de accidente de tráfico,
+					afectando a su memoria y comportamiento. El mundo corrosivo en el
+					que se ubicaba, sigue siendo el mismo aunque el no lo reconozca.
+					Y es cuestión de tiempo de que alguien pique a su puerta para
+					hacérselo recordar.
+				</p>
+				<h2>La solvencia técnica de A Diente de perro</h2>
+				<p>
+					La ópera prima de Jose Luís Estañ, es un torbellino de
+					sensaciones. La trama super efectiva, ubica a un personaje capaz
+					de generar dos personalidades altamente contrarias entre si. Una
+					labor encomiable que soporta todo el peso del metraje el muy
+					solvente Miguel Ángel Puro.
+				</p>
+				<p>
+					Rodada con una estupenda fotografía a cargo de Iván Émery,
+					alterna entre espacios abiertos y cerrados fabricas, descampados
+					y hogares disfuncionales. Destacando por supuesto la habilidad
+					técnica en iluminar interiores de noche, generando un clima de
+					eterna tristeza que acompaña al protagonista.
+				</p>
+				<h2>Atrapado</h2>
+				<p>
+					Sin poder salir de ese infierno que no recuerda, el clímax de A
+					diente de perro supone un buen broche a la cinta. El director
+					toma nota de los silencios, el juego de las miradas y la tensión
+					marca de la casa nacional. Y es que el cine español sabe crear
+					situaciones tensas como pocos, una tradición que recoge su
+					director.
+				</p>
+				<p>
+					El final nos permite acabar inhalando aire puro, después de una
+					noche llena de excesos y lograr así alcanzar la redención del
+					protagonista.
+				</p>
+				<p>
+					<a href="#" target="_blank" class="fondo-rojo_hover"
+						>A diente de perro se estrena en cines el 1 de julio.</a
+					>
+				</p>
+				<div class="info-autor">
+					<img src="img/fotoRuben.jpg" alt="foto del autor" />
+					<p>
+						<a href="autor_rubenmoreno.html" target="_blank" class="fondo-rojo_hover"
+							>Rubén Moreno Lozano</a><a
+								href="https://twitter.com/yosoydecine"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-twitter"></i></a
+							><a
+								href="https://www.instagram.com/yosoydecine/"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-instagram"></i></a><br />
+						Muchas pelis y libros pendientes de leer. Puedes escucharme en
+						el podcast de Puro Vicio y en el de Soydecine.com.
+					</p>
+				</div>
+				<div class="calificacion">
+					<div id="calificacion">
+						<h2>
+							Los usuarios calificaron este artículo con 2/5<i
+								class="fa-solid fa-star"
+							></i>
+						</h2>
+						<h3>Ayudenos a mejorar la página con su feedback</h3>
+						<form method="get" id="formulario-calificacion" name="formulario-calificacion">
+							<input
+								type="number"
+								min="1"
+								max="5"
+								id="calificacion-usuario"
+								name="calificacion"
+							/>
+							<input
+								type="button"
+								value="Enviar"
+								id="boton-enviar"
+								onclick="enviarFeedback()"
+							/>
+						</form>
+					</div>
+					<div class="mensaje-error" id="mensaje-error"></div>
+					<div id="sugerencias">
+						<br />
+						<h3>¿Qué no le gustó del artículo?</h3>
+						<textarea
+							name="comentario"
+							id="comentario"
+							placeholder="Su comentario..."
+							form="formulario-calificacion"
+							rows="5"
+						></textarea><br>
+						<input
+							type="button"
+							value="Enviar"
+							form="formulario-calificacion"
+							id="boton-enviar-comentario"
+							onclick="submit()"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar">
+				<div class="sidebar-contenido">
+					<div class="recomendados">
+						<h1>Te podría interesar</h1>
+						<div id="recomendado-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

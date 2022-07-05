@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			let indiceGeneral = 5;
+
+			function calcularFechas() {
+				var fechaPub = new Date(2022, 4, 23);
+				document.getElementById("fecha-publicacion").innerHTML =
+					mostrarFecha(fechaPub);
+			}
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+			function cargarRecomendado() {
+				let arregloArticulos = datos();
+				let indice = Math.floor(Math.random() * arregloArticulos.length);
+
+				if (indice == indiceGeneral) {
+					indice--;
+				}
+
+				let recomendado = arregloArticulos[indice];
+				let html =
+					'<a href="' +
+					recomendado.enlace +
+					'"><img src="' +
+					recomendado.foto +
+					'"/><p>' +
+					recomendado.titulo +
+					"</p></a>";
+
+				document.getElementById("recomendado-1").innerHTML = html;
+			}
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Love, Death & Robots VOL 3: una nueva joya de la animación para adultos | Soy de Cine</title>
+		<script></script>
+		<style>
+			.contenedor {
+				display: grid;
+				grid-gap: 20px;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				grid-template-areas:
+					"header header header"
+					"contenido contenido sidebar";
+			}
+		</style>
+	</head>
+	<body onload="calcularFechas();cargarRecomendado()">
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item">
+						<a href="index.html" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link">Televisión</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<span class="categoria">Televisión</span>
+				<h1>
+					Love, Death & Robots VOL 3: una nueva joya de la animación para
+					adultos
+				</h1>
+				<h3>
+					Love, Death & Robots estrena una nueva colección de historias
+				</h3>
+				<div class="autor">
+					Publicado el
+					<strong><span id="fecha-publicacion"></span></strong><br />
+					por
+					<a href="autor_cristianpestana.html" class="fondo-rojo_hover">Cristian Pestana</a>
+				</div>
+				<img
+					src="img/lovedeathrobots.jpg"
+					alt="Captura de la serie 'Love, Death & Robots'"
+				/>
+				<p>
+					Después de dos temporadas exitosas, Love, Death & Robots regresa
+					con una entrega de historias llenas de sangre, diversión y
+					reflexiones profundas sobre el ser humano. En esta ocasión,
+					cuenta con nueve episodios de gran calidad visual y ya está
+					disponible en la plataforma de Netflix.
+				</p>
+				<h2>Sinopsis de la temporada 3 de Love, Death & Robots</h2>
+				<p>
+					Una tripulación de marineros se enfrenta a una criatura
+					monstruosa de las profundidades, los miembros de un escuadrón de
+					fuerzas especiales encuentran a un demonio ancestral en las
+					montañas de Afganistán, asistimos a la relación tóxica de una
+					sirena con un caballero sordo que se resiste a caer en su trampa
+					mortal… Estas son algunas de las historias que componen el
+					volumen 3 de Love, Death & Robots.
+				</p>
+				<h2>Crítica de Love, Death & Robots VOL 3</h2>
+				<p>
+					En los últimos años, la plataforma de Netflix ha decidido apostar
+					por una máxima clara: cantidad por encima de la calidad. Esto ha
+					dado lugar a productos decepcionantes, que luego de un vistazo,
+					se olvidan con facilidad. Pero, de vez en cuando, hay alguna
+					pequeña joya escondida en el catálogo, con la que podemos
+					maravillarnos. Es el caso de producciones como The Crown, Gambito
+					de Dama o la serie que nos ocupa.
+				</p>
+				<h2>Animación sobresaliente</h2>
+				<p>
+					Una de las principales señas de identidad de Love, Death & Robots
+					es su animación. Cada episodio cuenta con un estilo de animación
+					distinto, que les aporta personalidad propia y muestra la
+					creatividad ilimitada de la cual se puede disponer para lograr
+					grandes avances en la técnica. De esta manera, encontramos
+					historias con animación 2D tradicional hasta el 3D más
+					alucinante.
+				</p>
+				<p>
+					En particular, destacan dos episodios de esta entrega: Jíbaro,
+					con una animación fotorrealista que pone los pelos de punta al
+					presentarnos escenarios como bosques y cascadas, y personajes con
+					un nivel milimétrico de atención al detalle.
+				</p>
+				<p>
+					El otro es Mal Viaje, para muchos el mejor cortometraje de esta
+					temporada, dirigido por el aclamado David Fincher. Esta historia,
+					creada a través de captura de movimiento nos adentra de lleno en
+					un barco mercante, donde cada miembro de la tripulación posee un
+					aspecto distintivo y la escalofriante criatura que convive con
+					ellos, de aspecto lovecraftiano es una creación imponente que
+					eleva el conjunto de un episodio brillante.
+				</p>
+				<img
+					src="img/lovedeathrobots2.jpg"
+					alt="Captura de la serie Love, Death & Robots"
+				/>
+				<h2>Variedad argumental</h2>
+				<p>
+					El apartado técnico de Love, Death & Robots es sublime, pero
+					además, están acompañados de narrativas interesantes que
+					afortunadamente presentan más éxitos que fallos. Tenemos la
+					asombrosa aventura espacial de El mismo pulso de la máquina que
+					se desarrolla como un viaje alucinógeno con reflexiones
+					filosóficas incluidas. La inteligente exploración de las
+					relaciones tóxicas en Jíbaro plasmada a través de una suerte de
+					danza mortal y revisionismo de la mitología que rodea a las
+					sirenas es una experiencia fascinante y perturbadora al mismo
+					tiempo, mientras que el espléndido Mal Viaje le da una vuelta de
+					tuerca a los relatos de aventuras tradicionales.
+				</p>
+				<p>
+					Por otra parte, el humor negro y el terror se dan de la mano en
+					Equipo Mortal y En Salas abovedadas sepultadas, ambas con un
+					espíritu desternillante de serie B y La noche de los minimuertos
+					ofrece diversión y creatividad en una presentación compacta.
+				</p>
+				<p>
+					En el lado negativo, tenemos el decepcionante regreso de los
+					adorables y sarcásticos robots de la primera temporada en Tres
+					Robots: Estrategias de salida donde nos presentan una dosis de
+					crítica social con brocha gruesa y de manera banal. Lo mismo pasa
+					con Las Ratas de Mason y su mensaje antiguerra de gran
+					importancia para los tiempos que vivimos se pierde debido a un
+					tono errático y ejecución rocambolesca de su metáfora.
+				</p>
+				<p>
+					El terror científico de El Enjambre tiene un desarrollo
+					interesante, pero su final es insípido y carente de la intensidad
+					requerida para ser efectivo.
+				</p>
+				<h2>En conclusión…</h2>
+				<p>
+					Love, Death & Robots entrega una nueva colección de historias que
+					asombran por su variedad y la excepcional animación que se ha
+					vuelto marca de la casa. Una joya audiovisual que no decepciona y
+					sigue demostrando por qué es una de las mejores producciones que
+					pueden encontrar en Netflix.
+				</p>
+				<p>
+					<a
+						href="https://www.netflix.com/ve/title/80174608"
+						target="_blank"
+						class="fondo-rojo_hover"
+						>Puedes ver Love, Death & Robots en Netflix.</a
+					>
+				</p>
+				<div class="info-autor">
+					<img src="img/fotoCristian.jpg" alt="foto del autor" />
+					<p>
+						<a href="autor_cristianpestana.html" target="_blank" class="fondo-rojo_hover"
+							>Cristian Pestana</a><a
+								href="https://twitter.com/yosoydecine"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-twitter"></i></a
+							><a
+								href="https://www.instagram.com/yosoydecine/"
+								target="_blank"
+								class="redes-autor"
+								><i class="fa-brands fa-instagram"></i></a
+						><br />
+						Soy venezolano, tengo 24 años. Licenciado en Comunicación
+						Social, mención Guionismo y Producción Audiovisual. Aficionado
+						del cine y la literatura.
+					</p>
+				</div>
+                <div class="calificacion">
+                    <div id="calificacion">
+                        <h2>
+                            Los usuarios calificaron este artículo con 4.25/5<i
+                                class="fa-solid fa-star"
+                            ></i>
+                        </h2>
+                        <h3>Ayudenos a mejorar la página con su feedback</h3>
+                        <form method="get" id="formulario-calificacion" name="formulario-calificacion">
+                            <input
+                                type="number"
+                                min="1"
+                                max="5"
+                                id="calificacion-usuario"
+                                name="calificacion"
+                            />
+                            <input
+                                type="button"
+                                value="Enviar"
+                                id="boton-enviar"
+                                onclick="enviarFeedback()"
+                            />
+                        </form>
+                    </div>
+                    <div class="mensaje-error" id="mensaje-error"></div>
+                    <div id="sugerencias">
+                        <br />
+                        <h3>¿Qué no le gustó del artículo?</h3>
+                        <textarea
+                            name="comentario"
+                            id="comentario"
+                            placeholder="Su comentario..."
+                            form="formulario-calificacion"
+                            rows="5"
+                        ></textarea><br>
+                        <input
+                            type="button"
+                            value="Enviar"
+                            form="formulario-calificacion"
+                            id="boton-enviar-comentario"
+                            onclick="submit()"
+                        />
+                    </div>
+                </div>
+			</div>
+			<div class="sidebar">
+				<div class="sidebar-contenido">
+					<div class="recomendados">
+						<h1>Te podría interesar</h1>
+						<div id="recomendado-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>

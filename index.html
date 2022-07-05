@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<meta
+			name="description"
+			content="Brindando las últimas noticias y actualizaciones directo a su puerta virtual. Soy de Cine ahora cuenta con un sitio lleno de novedades y entrevistas exclusivas."
+		/>
+		<meta name="author" content="Gustavo Oliveros" />
+		<link rel="icon" href="img/fotoRedaccion.jpg" type="image/x-icon" />
+		<script src="js/main.js"></script>
+		<script>
+			let indice = 1;
+
+			function abrirMenu() {
+				document.getElementById("busqueda-text").className =
+					"busqueda-text_active";
+				document.getElementById("busqueda").className = "busqueda_active";
+				document.body.style.overflow = "hidden";
+			}
+
+			function cerrarMenu() {
+				document.getElementById("busqueda-text").value = "";
+				document.getElementById("busqueda-text").className = "";
+				document.getElementById("busqueda").className = "busqueda";
+				document.body.style.overflow = "visible";
+			}
+			function avanzarSlider() {
+				indice++;
+				if (indice > 5) {
+					indice = 1;
+				}
+				let seleccion = "slider-" + indice;
+				document
+					.querySelector(".slider-active")
+					.classList.remove("slider-active");
+				document.getElementById(seleccion).classList.add("slider-active");
+			}
+			function retrocederSlider() {
+				indice--;
+				if (indice < 1) {
+					indice = 5;
+				}
+				let seleccion = "slider-" + indice;
+				document
+					.querySelector(".slider-active")
+					.classList.remove("slider-active");
+				document.getElementById(seleccion).classList.add("slider-active");
+			}
+
+			function irAPosicion(indicePos) {
+				let seleccion = "slider-" + indicePos;
+				document
+					.querySelector(".slider-active")
+					.classList.remove("slider-active");
+				document.getElementById(seleccion).classList.add("slider-active");
+				indice = indicePos;
+			}
+
+			function cargarRecientes() {
+				let arregloArticulos = organizarPorFecha(datos());
+				let html;
+
+				for (let i = 0; i < 6; i++) {
+					html =
+						'<a href="' +
+						arregloArticulos[i].enlace +
+						'"><img src="' +
+						arregloArticulos[i].foto +
+						'"/><p>' +
+						arregloArticulos[i].titulo +
+						"</p></a>";
+					document.getElementById("articulo-" + i).innerHTML = html;
+				}
+			}
+
+			function activarCuentaRegresiva() {
+				// Fecha de la cuenta
+				let fecha = new Date(2022, 6, 8);
+				let fecha2 = new Date(2022, 6, 1);
+				document.getElementById("cuenta-regresiva-num").innerHTML =
+					cuentaRegresiva(fecha);
+				document.getElementById("cuenta-regresiva-num-2").innerHTML = cuentaRegresiva(fecha2);
+			}
+
+			setInterval(function(){
+				avanzarSlider();
+			}, 5000)
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			src="https://kit.fontawesome.com/67ef45c2de.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Últimas Noticias y Novedades | Soy de Cine</title>
+		<style>
+			.contenedor {
+				display: block;
+			}
+			.img-contenido {
+				margin-top: 20px;
+			}
+			.contacto-titulo {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body onload="activarCuentaRegresiva();cargarRecientes()">
+		<div class="nav-header" id="nav-header">
+			<div class="nav">
+				<ul class="nav-menu">
+					<li class="nav-menu-item nav-menu-item_active">
+						<a href="#" class="nav-menu-link">Inicio</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="sobre-nosotros.html" class="nav-menu-link"
+							>Sobre Nosotros</a
+						>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_cine.html" class="nav-menu-link">Cine</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="categoria_television.html" class="nav-menu-link">Televisión</a>
+					</li>
+					<li class="nav-menu-item">
+						<a href="contacto.html" class="nav-menu-link">Contacto</a>
+					</li>
+				</ul>
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+						<li class="redes-item">
+							<a href="#" class="redes-link" onclick="abrirMenu()"
+								><i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="busqueda" id="busqueda">
+			<div class="busqueda-form">
+				<form method="get">
+					<input
+						type="text"
+						id="busqueda-text"
+						class="busqueda-text"
+						placeholder="BUSCAR..."
+						name="busqueda"
+					/>
+					<input type="text" style="display:none">
+				</form>
+				<a href="#" onclick="verificarBusqueda()">BUSCAR...</a><br />
+				<a href="busqueda.html">BUSQUEDA AVANZADA...</a><br />
+				<a href="#" onclick="cerrarMenu()"
+					><i class="fa-solid fa-x"></i> SALIR...</a
+				>
+			</div>
+		</div>
+
+		<div class="contenedor" id="contenedor">
+			<div class="header">
+				<a href="#"
+					><img
+						src="img/logo.png"
+						alt="Logo de Soy de Cine"
+						class="header-logo"
+				/></a>
+			</div>
+			<div class="contenido">
+				<div class="slider">
+					<div class="control" onclick="retrocederSlider()">
+						<button><i class="fa-solid fa-arrow-left"></i></button>
+					</div>
+					<div class="contenedor-slider slider-active" id="slider-1">
+						<h1>Articulos destacados</h1>
+						<div class="botones-slider">
+							<i
+								class="fa-solid fa-circle boton-slider boton-slider_active"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(2)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(3)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(4)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(5)"
+							></i>
+						</div>
+						<a href="art_thorloveandthunder.html">
+							<img
+								src="img/thorloveandthunder.jpg"
+								alt="thor love and thunder"
+							/>
+							<p>Thor: Love and Thunder ¿Qué esperar de lo nuevo de Marvel</p>
+						</a>
+					</div>
+					<div class="contenedor-slider" id="slider-2">
+						<h1>Articulos destacados</h1>
+						<div class="botones-slider">
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(1)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider boton-slider_active"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(3)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(4)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(5)"
+							></i>
+						</div>
+						<a href="art_estrenosinfantiles.html">
+							<img
+								src="img/estrenoinfantiles.jpg"
+								alt="a diente de perro critica"
+							/>
+							<p>Estrenos infantiles de julio de 2022: películas y series</p>
+						</a>
+					</div>
+					<div class="contenedor-slider" id="slider-3">
+						<h1>Articulos destacados</h1>
+						<div class="botones-slider">
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(1)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(2)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider boton-slider_active"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(4)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(5)"
+							></i>
+						</div>
+						<a href="art_strangerthings4.html">
+							<img
+								src="img/strangerthings4.jpg"
+								alt="Stranger Things 4"
+							/>
+							<p>Stranger things 4: Tres años de espera para volver a Hawkins</p>
+						</a>
+					</div>
+					<div class="contenedor-slider" id="slider-4">
+						<h1>Articulos destacados</h1>
+						<div class="botones-slider">
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(1)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(2)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(3)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider boton-slider_active"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(5)"
+							></i>
+						</div>
+						<a href="art_lovedeathrobots.html">
+							<img
+								src="img/lovedeathrobots.jpg"
+								alt="Love Death & Robots"
+							/>
+							<p>Love, Death & Robots VOL 3: una nueva joya de la animación para adultos</p>
+						</a>
+					</div>
+					<div class="contenedor-slider" id="slider-5">
+						<h1>Articulos destacados</h1>
+						<div class="botones-slider">
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(1)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(2)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(3)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider"
+								onclick="irAPosicion(4)"
+							></i>
+							<i
+								class="fa-solid fa-circle boton-slider boton-slider_active"
+							></i>
+						</div>
+						<a href="art_entrevistapeponnieto.html">
+							<img
+								src="img/pepon_nieto.jpg"
+								alt="Entrevista a Pepon Nieto"
+							/>
+							<p>Entrevista a Pepón Nieto</p>
+						</a>
+					</div>
+					<div class="control" onclick="avanzarSlider()">
+						<button><i class="fa-solid fa-arrow-right"></i></button>
+					</div>
+				</div>
+				<h1>Articulos recientes</h1>
+				<div class="articulos-recientes">
+					<div class="articulo" id="articulo-0"></div>
+					<div class="articulo" id="articulo-1"></div>
+					<div class="articulo" id="articulo-2"></div>
+					<div class="articulo" id="articulo-3"></div>
+					<div class="articulo" id="articulo-4"></div>
+					<div class="articulo" id="articulo-5"></div>
+				</div>
+				<h1 style="text-align: center">Próximos estrenos</h1>
+				<a href="art_thorloveandthunder.html" class="estreno" target="_blank">
+					<div class="cuenta-regresiva">
+						<img
+							src="img/poster-thor.jpg"
+							alt="Poster de Thor Love and Thunder"
+						/>
+						
+						<div>
+							<h3>Marvel Studios</h3>
+							<h1>Thor: Love and Thunder</h1>
+							<h2 id="cuenta-regresiva-num" class="cuenta">&nbsp;</h2>
+							<h3>8 de Julio</h3>
+						</div>
+					</div>
+				</a>
+				<a href="art_strangerthings4.html" class="estreno" target="_blank">
+					<div class="cuenta-regresiva">
+						<img src="img/strangerthings_poster.jpg" alt="Poster de Stranger Things 4">
+						<div>
+							<h3>Netflix</h3>
+							<h1>Stranger Things 4: Vol. 2</h1>
+							<h2 id="cuenta-regresiva-num-2" class="cuenta">&nbsp;</h2>
+							<h3>1 de Julio</h3>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-contenido">
+				<div class="redes">
+					<ul class="redes-menu">
+						<li class="redes-item">Siguenos en:</li>
+						<li class="redes-item">
+							<a
+								href="https://twitter.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.instagram.com/yosoydecine/"
+								class="redes-link"
+								target="_blank"
+							>
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li class="redes-item">
+							<a
+								href="https://www.youtube.com/yosoydecine"
+								class="redes-link"
+								target="_blank"
+								><i class="fa-brands fa-youtube"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<p class="footer-copy-texto">Copyright ©2022 - Soy de Cine</p>
+		</div>
+	</body>
+</html>
