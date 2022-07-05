@@ -3,11 +3,9 @@ Página de noticias realizada para Programación Estática y Laboratorio Web (20
 
 # Materia 2022
 
- Programación Estática y Laboratorio Web
- Tecnicaturas
- FAI
- Universidad del Comahue
+ - Programación Estática y Laboratorio Web
+ - Tecnicaturas FAI - Universidad del Comahue
 
- ## Integrantes del grupo
+ ## Desarrollado por
 
  - **Gustavo Oliveros** - legajo 3621 - mail:gustavo.oliveros@est.fi.uncoma.edu.ar - usuario github: GustavoOliveros
